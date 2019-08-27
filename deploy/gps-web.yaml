@@ -1,0 +1,66 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gps-web
+  namespace: mics
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gps-web
+    spec:
+      containers:
+        - name: gps-web
+          image: registry.cn-hangzhou.aliyuncs.com/zhangww/gps-web:v1.0.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9995
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/usr/bin/curl","-X","POST", "http://localhost:9996/shutdown"]
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 9995
+              scheme: HTTP
+            initialDelaySeconds: 300
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 9995
+              scheme: HTTP
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+          args:
+            - --management.server.port=9995
+            - --management.endpoints.web.exposure.include=*
+            - --management.endpoint.health.show-details=always
+            - --eureka.instance.health-check-url-path=/actuator/health
+          env:
+            - name: EUREKA_SERVER_ADDRESS
+              valueFrom:
+                configMapKeyRef:
+                  name: eureka-cm
+                  key: eureka_service_address
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gps-web
+  namespace: mics
+  labels:
+    app: gps-web
+spec:
+  selector:
+    app: gps-web 
+  ports:
+    - name: http
+      port: 9995
+      protocol: TCP
