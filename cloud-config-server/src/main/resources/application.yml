@@ -1,0 +1,26 @@
+server:
+  port: 7369
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://10.36.10.18:30030/eureka
+spring:
+  application:
+    name: cloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/zhang8/config-repo.git
+          search-paths: pcitech/dev
+          force-pull: true
+          username: 15266476089
+          password: zhang4935
+  security:
+    basic:
+      enabled: true
+    user:
+      name: pcitech
+      password: pci123

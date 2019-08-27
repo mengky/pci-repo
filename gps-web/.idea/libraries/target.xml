@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="target">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../api-gateway-balance/target/api-gateway-1.0-SNAPSHOT-docker-info.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../api-gateway-balance/target/api-gateway-1.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="doclet-exclude">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Desktop/zuul-2.1/gradle/doclet-exclude.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

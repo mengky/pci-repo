@@ -1,0 +1,29 @@
+# Define the port where the Widget Foundry server would be running
+server:
+  port: 9992
+eureka:
+  client:
+    service-url:
+      defaultZone: http://10.36.10.18:30030/eureka
+  instance:
+    prefer-ip-address: true
+spring:
+  application:
+    name: api-gateway-zuul
+  cloud:
+    config:
+      # 启用config配置中心服务cloud-config-server
+      discovery:
+        enabled: true
+        service-id: cloud-config-server
+      # uri: http://127.0.0.1:7369
+      name: api-gateway-zuul
+      label: master
+      profile: default
+      username: pcitech
+      password: pci123
+zuul:
+  routes:
+    api-b-url:
+      path: /demo/**
+      service-id: service-demo

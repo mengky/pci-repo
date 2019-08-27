@@ -1,0 +1,21 @@
+# Define the port where the Service Registry server would be running
+server:
+  port: 9995
+
+spring:
+  application:
+    name: gps-web-server
+  cloud:
+    config:
+      uri: http://127.0.0.1:7369
+      name: api-gateway-zuul
+      label: master
+      profile: default
+      username: pcitech
+      password: pci123
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://10.36.10.18:30030/eureka
